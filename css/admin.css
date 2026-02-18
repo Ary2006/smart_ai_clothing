@@ -1,0 +1,60 @@
+/* Admin specific overrides */
+
+table {
+  border-collapse: collapse;
+  background: #fff;
+}
+
+th {
+  background: #2563eb;
+  color: white;
+}
+
+td, th {
+  padding: 10px;
+}
+
+.card h3 {
+  margin-top: 0;
+}
+/* =========================
+   ADMIN FORM STYLING
+   ========================= */
+
+.admin-form {
+  max-width: 600px;
+  background: #fff;
+  padding: 25px;
+  border-radius: 8px;
+}
+
+.admin-form label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #1e293b;
+}
+
+.admin-form input,
+.admin-form select,
+.admin-form textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  margin-bottom: 15px;
+  font-size: 14px;
+}
+
+.admin-form input[type="file"] {
+  padding: 6px;
+}
+
+.admin-form textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.admin-form button {
+  margin-top: 10px;
+}

@@ -1,0 +1,99 @@
+/* =====================
+   GLOBAL THEME
+===================== */
+
+:root {
+  --primary: #2563eb;
+  --dark: #1e293b;
+  --bg: #f8fafc;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+}
+
+/* =====================
+   TOP NAVBAR (NARROW)
+===================== */
+
+.nav-top {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 20px;
+  padding: 8px 40px;
+  background: var(--dark);
+  color: white;
+  font-size: 14px;
+}
+
+.nav-top a {
+  color: white;
+  text-decoration: none;
+}
+
+/* =====================
+   MAIN CATEGORY NAVBAR
+===================== */
+
+.nav-bottom {
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+  padding: 15px 0;
+  background: white;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.nav-bottom a {
+  text-decoration: none;
+  font-weight: bold;
+  color: black;
+}
+
+/* =====================
+   AVATAR
+===================== */
+
+.avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+}
+
+/* =====================
+   COMMON UI
+===================== */
+
+.container {
+  width: 90%;
+  margin: auto;
+}
+
+.btn {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.card {
+  background: white;
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
