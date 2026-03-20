@@ -32,7 +32,7 @@ $total = 0;
     <!-- IMAGE -->
     <a href="product.php?id=<?= $p['id'] ?>">
       <img src="uploads/products/<?= $p['image'] ?>"
-           style="width:120px;height:120px;object-fit:cover;border-radius:8px">
+          style="width:120px;height:120px;object-fit:cover;border-radius:8px">
     </a>
 
     <!-- DETAILS -->

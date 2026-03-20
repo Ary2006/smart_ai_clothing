@@ -26,8 +26,8 @@ foreach ($cart as $pid => $qty) {
     $price = $p['price'];
 
     $conn->query("
-      INSERT INTO order_items (order_id, product_id, price, quantity)
-      VALUES ($order_id, $pid, $price, $qty)
+    INSERT INTO order_items (order_id, product_id, price, quantity)
+    VALUES ($order_id, $pid, $price, $qty)
     ");
 }
 

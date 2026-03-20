@@ -22,7 +22,7 @@ if (!$product) {
     <!-- IMAGE -->
     <div style="flex:1">
       <img src="uploads/products/<?= $product['image'] ?>"
-           style="width:100%;max-height:400px;object-fit:cover">
+          style="width:100%;max-height:400px;object-fit:cover">
     </div>
 
     <!-- DETAILS -->
