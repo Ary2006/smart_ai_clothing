@@ -6,34 +6,30 @@ include 'config/db.php';
 <div class="container">
   <h2>Top Rated Products</h2>
 
-  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px">
-
+  <div class="products-container">
   <?php
   $res = $conn->query("SELECT * FROM products ORDER BY rating DESC LIMIT 6");
   while ($p = $res->fetch_assoc()):
   ?>
 
-    <div class="card">
+<div class="product-card">
 
-      <!-- CLICKABLE IMAGE -->
+  <a href="product.php?id=<?= $p['id'] ?>" class="product-image">
+    <img src="uploads/products/<?= $p['image'] ?>" alt="<?= $p['name'] ?>">
+  </a>
+
+  <div class="product-info">
+    <h3>
       <a href="product.php?id=<?= $p['id'] ?>">
-        <img 
-          src="uploads/products/<?= $p['image'] ?>" 
-          style="width:100%;height:200px;object-fit:cover"
-        >
+        <?= $p['name'] ?>
       </a>
+    </h3>
 
-      <!-- CLICKABLE NAME -->
-      <h4>
-        <a href="product.php?id=<?= $p['id'] ?>" style="text-decoration:none;color:black">
-          <?= $p['name'] ?>
-        </a>
-      </h4>
+    <p class="price">₹<?= $p['price'] ?></p>
+    <p class="rating">⭐ <?= $p['rating'] ?></p>
+  </div>
 
-      <p>₹<?= $p['price'] ?></p>
-      <p><?= $p['rating'] ?></p>
-
-    </div>
+</div>
 
   <?php endwhile; ?>
 
