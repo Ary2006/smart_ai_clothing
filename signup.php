@@ -5,19 +5,22 @@ $error = "";
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
-    // Gmail-only validation
     if (!str_ends_with($_POST['email'], '@gmail.com')) {
         $error = "Only Gmail addresses are allowed";
-    } else {
+    }
 
-        $name   = $conn->real_escape_string($_POST['name']);
-        $email  = $conn->real_escape_string($_POST['email']);
-        $age    = (int)$_POST['age'];
-        $gender = $conn->real_escape_string($_POST['gender']);
-        $pass   = password_hash($_POST['password'], PASSWORD_DEFAULT);
+    elseif ($_POST['password'] !== $_POST['confirm_password']) {
+        $error = "Passwords do not match";
+    }
 
-        $sql = "INSERT INTO users (name,email,password,age,gender)
-                VALUES ('$name','$email','$pass',$age,'$gender')";
+    else {
+        $name  = $conn->real_escape_string($_POST['name']);
+        $email = $conn->real_escape_string($_POST['email']);
+        $phone = $conn->real_escape_string($_POST['phone']);
+        $pass  = password_hash($_POST['password'], PASSWORD_DEFAULT);
+
+        $sql = "INSERT INTO users (name,email,password,phone)
+                VALUES ('$name','$email','$pass','$phone')";
 
         if ($conn->query($sql)) {
             header("Location: login.php");
@@ -32,26 +35,61 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <?php include 'header.php'; ?>
 
 <div class="container">
-  <div class="card" style="max-width:400px;margin:40px auto">
+  <div style="max-width:400px;margin:40px auto">
     <h3>Signup</h3>
 
-    <?php if($error): ?>
+    <?php if ($error): ?>
       <p style="color:red"><?= $error ?></p>
     <?php endif; ?>
 
-    <form method="post">
-      <input name="name" placeholder="Name" required><br><br>
-      <input name="email" placeholder="Gmail address" required><br><br>
-      <input type="password" name="password" placeholder="Password" required><br><br>
-      <input type="number" name="age" placeholder="Age"><br><br>
+    <div class="login-page">
+      <div class="login-box">
 
-      <select name="gender">
-        <option value="Male">Male</option>
-        <option value="Female">Female</option>
-      </select><br><br>
+        <h2>Create Account</h2>
+        <p class="subtitle">Join Smart AI Clothing</p>
 
-      <button class="btn">Create Account</button>
-    </form>
+        <?php if ($error): ?>
+          <p class="error"><?= $error ?></p>
+        <?php endif; ?>
+
+        <form method="post">
+
+          <div class="input-group">
+            <label>Full Name</label>
+            <input name="name" required>
+          </div>
+
+          <div class="input-group">
+            <label>Email (Gmail only)</label>
+            <input type="email" name="email" required>
+          </div>
+
+          <div class="input-group">
+            <label>Password</label>
+            <input type="password" name="password" required>
+          </div>
+
+          <div class="input-group">
+            <label>Confirm Password</label>
+            <input type="password" name="confirm_password" required>
+          </div>
+
+          <div class="input-group">
+            <label>Phone (optional)</label>
+            <input type="text" name="phone">
+          </div>
+
+          <button class="login-btn">Create Account</button>
+
+        </form>
+
+        <p class="signup-text">
+          Already have an account?
+          <a href="login.php">Login</a>
+        </p>
+
+      </div>
+    </div>
   </div>
 </div>
 

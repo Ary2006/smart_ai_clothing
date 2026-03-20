@@ -5,78 +5,83 @@ $error = "";
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
-    $email = $conn->real_escape_string($_POST['email']);
-    $password = $_POST['password'];
-    $role = $_POST['role']; // USER or ADMIN
+  $email = $conn->real_escape_string($_POST['email']);
+  $password = $_POST['password'];
+  $role = $_POST['role']; // USER or ADMIN
 
-    $res = $conn->query("SELECT * FROM users WHERE email='$email'");
-    $user = $res->fetch_assoc();
+  $res = $conn->query("SELECT * FROM users WHERE email='$email'");
+  $user = $res->fetch_assoc();
 
-    if ($user && password_verify($password, $user['password'])) {
+  if ($user && password_verify($password, $user['password'])) {
 
-        // ROLE CHECK (IMPORTANT)
-        if ($user['role'] !== $role) {
-            $error = "You are not authorized to login as $role";
-        } else {
-
-            // Session
-            $_SESSION['uid']  = $user['id'];
-            $_SESSION['user'] = $user['name'];
-            $_SESSION['role'] = $user['role'];
-
-            // Redirect based on role
-            if ($role === 'ADMIN') {
-                header("Location: admin/dashboard.php");
-            } else {
-                header("Location: index.php");
-            }
-            exit;
-        }
-
+    // ROLE CHECK (IMPORTANT)
+    if ($user['role'] !== $role) {
+      $error = "You are not authorized to login as $role";
     } else {
-        $error = "Invalid email or password";
+
+      // Session
+      $_SESSION['uid'] = $user['id'];
+      $_SESSION['user'] = $user['name'];
+      $_SESSION['role'] = $user['role'];
+
+      // Redirect based on role
+      if ($role === 'ADMIN') {
+        header("Location: admin/dashboard.php");
+      } else {
+        header("Location: index.php");
+      }
+      exit;
     }
+
+  } else {
+    $error = "Invalid email or password";
+  }
 }
 ?>
 
 <?php include 'header.php'; ?>
 
-<div class="container">
-  <div class="card" style="max-width:420px;margin:70px auto;">
-    <h2 style="text-align:center">Login</h2>
+<div class="login-page">
+  <div class="login-box">
+
+    <h2>Welcome Back</h2>
+    <p class="subtitle">Login to Smart AI Clothing</p>
 
     <?php if ($error): ?>
-      <p style="color:red;text-align:center"><?= $error ?></p>
+      <p class="error"><?= $error ?></p>
     <?php endif; ?>
 
     <form method="post">
 
-      <label>Email</label>
-      <input type="email" name="email" required>
+      <div class="input-group">
+        <label>Email</label>
+        <input type="email" name="email" required>
+      </div>
 
-      <br><br>
+      <div class="input-group">
+        <label>Password</label>
+        <input type="password" name="password" required>
+      </div>
 
-      <label>Password</label>
-      <input type="password" name="password" required>
+      <div class="input-group">
+        <label>Login As</label>
+        <select name="role" required>
+          <option value="USER">User</option>
+          <option value="ADMIN">Admin</option>
+        </select>
+      </div>
 
-      <br><br>
+      <button class="login-btn">Login</button>
 
-      <label>Login As</label>
-      <select name="role" required>
-        <option value="USER">User</option>
-        <option value="ADMIN">Admin</option>
-      </select>
-
-      <br><br>
-
-      <button class="btn" style="width:100%">Login</button>
     </form>
 
-    <p style="text-align:center;margin-top:15px">
+    <p class="signup-text">
       Don’t have an account?
       <a href="signup.php">Signup</a>
     </p>
+
   </div>
 </div>
+
 
 <?php include 'footer.php'; ?>
