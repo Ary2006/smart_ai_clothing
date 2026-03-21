@@ -2,6 +2,10 @@
 include '../config/db.php';
 include '../config/auth.php';
 adminOnly();
+
+$totalProducts = $conn->query("SELECT COUNT(*) as count FROM products")->fetch_assoc()['count'];
+$totalUsers = $conn->query("SELECT COUNT(*) as count FROM users")->fetch_assoc()['count'];
+$avgPrice = $conn->query("SELECT AVG(price) as avg FROM products")->fetch_assoc()['avg'];
 ?>
 
 <?php include '../header.php'; ?>
@@ -16,6 +20,7 @@ adminOnly();
         <a href="add_product.php">➕ Add Product</a>
         <a href="bulk_upload.php">📄 Bulk Upload</a>
         <a href="regenerate_vectors.php">🧠 AI Update</a>
+        <a href="users.php">👤 Users</a>
         <a href="../index.php">🏠 Go to Shop</a>
     </div>
 
@@ -26,7 +31,20 @@ adminOnly();
             <h2>🛠 Admin Dashboard</h2>
         </div>
 
-        <div class="admin-card">
+        <!-- STATS GO HERE -->
+        <div class="stats-grid">
+
+            <div class="stat-card">
+                <h4>Total Products : <?= $totalProducts ?></h4>
+            </div>
+
+            <div class="stat-card">
+                <h4>Total Users : <?= $totalUsers ?></h4>
+            </div>
+
+        </div>
+
+        <div class="admin-card" id="products">
 
             <h3>📦 Product Management</h3>
 
