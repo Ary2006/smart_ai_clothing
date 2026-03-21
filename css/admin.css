@@ -2,28 +2,6 @@
     ADMIN DASHBOARD (DARK UI)
    ========================= */
 
-/* Table */
-.admin-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-.admin-table th {
-    background: #1c1c1c;
-    color: #aaa;
-    text-align: left;
-    padding: 12px;
-}
-
-.admin-table td {
-    padding: 12px;
-    border-bottom: 1px solid #222;
-}
-
-.admin-table tr:hover {
-    background: #1a1a1a;
-}
-
 /* Product Image */
 .product-thumb {
     width: 50px;
@@ -71,11 +49,6 @@
 .action-btn:hover {
     background: #00d4ff;
     color: black;
-}
-
-/* AI button */
-.ai-btn {
-    background: #6f42c1;
 }
 
 /* =========================
@@ -222,4 +195,10 @@
 .stat-card:hover {
     transform: translateY(-5px);
     background: #1a1a1a;
+}
+
+select {
+    background: #1c1c1c;
+    color: white;
+    border: none;
 }

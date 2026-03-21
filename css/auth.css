@@ -117,14 +117,6 @@ body {
     color: #fff;
 }
 
-/* The AI Button Style */
-.ai-btn {
-    color: white !important;
-    padding: 8px 15px;
-    border-radius: 20px;
-    font-weight: bold;
-}
-
 .search-container input {
     padding: 8px;
     border-radius: 5px;

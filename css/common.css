@@ -2,6 +2,22 @@
    GLOBAL THEME
 ===================== */
 
+* {
+    box-sizing: border-box;
+}
+
+a {
+    text-decoration: none;
+}
+
+.nav-links a {
+    transition: 0.3s;
+}
+
+.nav-links a:hover {
+    color: #00d4ff;
+}
+
 :root {
   --primary: #2563eb;
   --dark: #1e293b;
@@ -96,4 +112,18 @@ body {
   border-radius: 10px;
   padding: 15px;
   box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+/* The AI Button Style */
+.ai-btn {
+    background: #1c1c1c;
+    padding: 6px 12px;
+    border-radius: 8px;
+    color: white;
+    text-decoration: none;
+}
+
+.ai-btn:hover {
+    background: #00d4ff;
+    color: black;
 }
