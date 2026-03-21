@@ -14,7 +14,11 @@ $base_url = "http://localhost/smart_ai_clothing/";
     <link rel="stylesheet" href="<?= $base_url ?>css/common.css">
     <link rel="stylesheet" href="<?= $base_url ?>css/home.css">
     <link rel="stylesheet" href="<?= $base_url ?>css/auth.css">
-    <link rel="stylesheet" href="<?= $base_url ?>css/admin.css">
+
+    <!-- LOAD ADMIN CSS ONLY FOR ADMIN -->
+    <?php if (strpos($_SERVER['REQUEST_URI'], '/admin/') !== false): ?>
+        <link rel="stylesheet" href="<?= $base_url ?>css/admin.css">
+    <?php endif; ?>
 
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <meta charset="UTF-8">
@@ -76,4 +80,3 @@ $base_url = "http://localhost/smart_ai_clothing/";
         </div>
 
         <?php unset($_SESSION['toast']); endif; ?>
-</body>

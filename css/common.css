@@ -26,23 +26,35 @@ a {
 
 /* Navbar */
 
+/* NAVBAR */
+
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: #000;
-    padding: 15px 30px;
+    padding: 15px 40px;
+    background: #0b0b0b;
+    border-bottom: 1px solid #222;
+}
+
+.logo a {
+    font-size: 22px;
+    font-weight: 600;
+    color: white;
+    text-decoration: none;
 }
 
 .nav-links {
     display: flex;
     align-items: center;
+    gap: 25px;
 }
 
 .nav-links a {
-    margin-left: 20px;
     color: #ccc;
-    font-size: 16px;
+    text-decoration: none;
+    font-size: 15px;
+    transition: 0.3s;
 }
 
 .nav-links a:hover {
@@ -59,17 +71,17 @@ a {
     cursor: pointer;
 }
 
-/* AI Button */
 .ai-btn {
-    background: #1c1c1c;
-    padding: 6px 12px;
-    border-radius: 8px;
-    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    background: #222;
+    color: white !important;
+    font-weight: 500;
 }
 
 .ai-btn:hover {
     background: #00d4ff;
-    color: black;
+    color: black !important;
 }
 
 /* TOAST */

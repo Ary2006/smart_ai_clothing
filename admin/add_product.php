@@ -5,7 +5,7 @@ include '../config/auth.php';
 // 1. Security Check
 adminOnly();
 
-include 'header.php';
+include '../header.php';
 
 $msg = "";
 $error = "";
