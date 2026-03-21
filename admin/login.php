@@ -17,12 +17,17 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $_SESSION['admin_name'] = $admin['name'];
     $_SESSION['role'] = 'ADMIN';
 
-    $_SESSION['toast'] = "Welcome back!";
-
+    $_SESSION['toast'] = [
+      "message" => "Welcome back!",
+      "type" => "success"
+    ];
     header("Location: dashboard.php");
     exit;
   } else {
-    $error = "Invalid admin credentials";
+    $_SESSION['toast'] = [
+      "message" => "Invalid admin credentials",
+      "type" => "error"
+    ];
   }
 }
 ?>

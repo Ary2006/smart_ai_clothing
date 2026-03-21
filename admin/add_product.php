@@ -51,7 +51,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $stmt->bind_param("ssddsssssi", $name, $description, $price, $rating, $fileName, $gender, $age_group, $color, $size, $on_offer);
 
         if ($stmt->execute()) {
-          $_SESSION['toast'] = "Product added successfully";
+          $_SESSION['toast'] = [
+            "message" => "Product added successfully",
+            "type" => "success"
+          ];
           header("Location: dashboard.php");
           exit;
         } else {

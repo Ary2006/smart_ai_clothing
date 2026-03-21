@@ -50,10 +50,30 @@ $base_url = "http://localhost/smart_ai_clothing/";
         </div>
     </nav>
 
-    <?php if (isset($_SESSION['toast'])): ?>
-        <div class="toast" id="toast">
-            <?= $_SESSION['toast']; ?>
+    <?php if (isset($_SESSION['toast'])):
+        $toast = $_SESSION['toast'];
+        $type = $toast['type'] ?? 'info';
+        ?>
+
+        <div class="toast <?= $type ?>" id="toast">
+            <span class="toast-icon">
+                <?php
+                if ($type == 'success') {
+                    echo "✔";
+                } elseif ($type == 'error') {
+                    echo "✖";
+                } elseif ($type == 'warning') {
+                    echo "⚠";
+                } else {
+                    echo "ℹ";
+                }
+                ?>
+            </span>
+
+            <span class="toast-message">
+                <?= $toast['message']; ?>
+            </span>
         </div>
-        <?php unset($_SESSION['toast']); ?>
-    <?php endif; ?>
+
+        <?php unset($_SESSION['toast']); endif; ?>
 </body>

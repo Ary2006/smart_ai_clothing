@@ -9,7 +9,9 @@ $stmt = $conn->prepare("DELETE FROM users WHERE id=?");
 $stmt->bind_param("i", $id);
 $stmt->execute();
 
-$_SESSION['toast'] = "User deleted successfully";
-
+$_SESSION['toast'] = [
+    "message" => "User deleted successfully",
+    "type" => "success"
+];
 header("Location: users.php");
 exit;
