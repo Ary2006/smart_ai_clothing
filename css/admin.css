@@ -91,7 +91,7 @@
 /* Main */
 .admin-main {
     flex: 1;
-    padding: 30px;
+    padding: 30px 40px;
 }
 
 /* Header */
@@ -126,14 +126,6 @@
 
 .admin-table tr:hover {
     background: #1a1a1a;
-}
-
-/* Image */
-.product-thumb {
-    width: 50px;
-    height: 50px;
-    object-fit: cover;
-    border-radius: 6px;
 }
 
 /* Actions */
@@ -201,4 +193,9 @@ select {
     background: #1c1c1c;
     color: white;
     border: none;
+}
+
+/* Improve spacing */
+.admin-main {
+    padding: 30px 40px;
 }
