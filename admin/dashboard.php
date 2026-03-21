@@ -52,11 +52,35 @@ $avgPrice = $conn->query("SELECT AVG(price) as avg FROM products")->fetch_assoc(
 
                 <tbody>
                     <?php
-                    $res = $conn->query("SELECT * FROM products ORDER BY id DESC LIMIT 10");
+
+                    $limit = 5;
+
+                    // Current page
+                    $page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
+                    if ($page < 1)
+                        $page = 1;
+
+                    $offset = ($page - 1) * $limit;
+
+                    // Base query
+                    $baseQuery = "FROM products";
+
+                    // Total count
+                    $totalRes = $conn->query("SELECT COUNT(*) as total $baseQuery");
+                    $totalRow = $totalRes->fetch_assoc();
+                    $totalProductsCount = $totalRow['total'];
+
+                    $totalPages = ceil($totalProductsCount / $limit);
+
+                    // Final data query
+                    $res = $conn->query("SELECT * $baseQuery ORDER BY id ASC LIMIT $limit OFFSET $offset");
+
+                    // Numbering
+                    $i = $offset + 1;
                     while ($p = $res->fetch_assoc()):
                         ?>
                         <tr>
-                            <td><?= $p['id'] ?></td>
+                            <td><?= $i++ ?></td>
 
                             <td>
                                 <img src="../uploads/products/<?= $p['image'] ?>" class="product-thumb">
@@ -76,6 +100,28 @@ $avgPrice = $conn->query("SELECT AVG(price) as avg FROM products")->fetch_assoc(
                 </tbody>
 
             </table>
+
+            <div style="margin-top:20px; text-align:center;">
+
+                <?php if ($page > 1): ?>
+                    <a href="?page=<?= $page - 1 ?>" class="btn">← Prev</a>
+                <?php endif; ?>
+
+                <?php for ($p = 1; $p <= $totalPages; $p++): ?>
+                    <a href="?page=<?= $p ?>" style="margin:0 5px;
+                        padding:6px 12px;
+                        background:<?= $p == $page ? '#00d4ff' : '#222' ?>;
+                        color:<?= $p == $page ? 'black' : 'white' ?>;
+                        border-radius:6px;">
+                        <?= $p ?>
+                    </a>
+                <?php endfor; ?>
+
+                <?php if ($page < $totalPages): ?>
+                    <a href="?page=<?= $page + 1 ?>" class="btn">Next →</a>
+                <?php endif; ?>
+
+            </div>
 
         </div>
 

@@ -3,26 +3,26 @@ include 'header.php';
 include 'config/db.php';
 
 if (!isset($_GET['id'])) {
-    echo "Invalid product";
-    exit;
+  echo "Invalid product";
+  exit;
 }
 
-$id = (int)$_GET['id'];
+$id = (int) $_GET['id'];
 $product = $conn->query("SELECT * FROM products WHERE id=$id")->fetch_assoc();
 
 if (!$product) {
-    echo "Product not found";
-    exit;
+  echo "Product not found";
+  exit;
 }
 ?>
 
 <div class="container">
-  <div class="card" style="display:flex;gap:30px;margin-top:40px">
-
+  <div class="card product-detail">
     <!-- IMAGE -->
     <div style="flex:1">
-      <img src="uploads/products/<?= $product['image'] ?>"
-          style="width:100%;max-height:400px;object-fit:cover">
+      <div class="product-image">
+        <img src="uploads/products/<?= $product['image'] ?>">
+      </div>
     </div>
 
     <!-- DETAILS -->

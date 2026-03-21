@@ -199,3 +199,17 @@ select {
 .admin-main {
     padding: 30px 40px;
 }
+
+.pagination a {
+    margin: 0 5px;
+    padding: 6px 12px;
+    background: #222;
+    color: white;
+    border-radius: 6px;
+    text-decoration: none;
+}
+
+.pagination a.active {
+    background: #00d4ff;
+    color: black;
+}

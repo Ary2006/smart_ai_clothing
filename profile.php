@@ -3,11 +3,11 @@ include 'header.php';
 include 'config/db.php';
 
 if (!isset($_SESSION['uid'])) {
-    header("Location: login.php");
-    exit;
+  header("Location: login.php");
+  exit;
 }
 
-$id = (int)$_SESSION['uid'];
+$id = (int) $_SESSION['uid'];
 $user = $conn->query("SELECT * FROM users WHERE id=$id")->fetch_assoc();
 ?>
 
@@ -19,10 +19,9 @@ $user = $conn->query("SELECT * FROM users WHERE id=$id")->fetch_assoc();
     <!-- AVATAR -->
     <div style="text-align:center;margin-bottom:20px">
       <?php if (!empty($user['profile_img'])): ?>
-        <img 
-          src="uploads/profiles/<?= $user['profile_img'] ?>" 
-          style="width:100px;height:100px;border-radius:50%;object-fit:cover"
-        >
+        <div class="product-image">
+          <img src="uploads/products/<?= $p['image'] ?>">
+        </div>
       <?php else: ?>
         <div class="avatar" style="width:100px;height:100px;font-size:36px;margin:auto">
           <?= strtoupper($user['name'][0]) ?>
@@ -55,24 +54,24 @@ $user = $conn->query("SELECT * FROM users WHERE id=$id")->fetch_assoc();
       <a href="orders.php">My Orders</a>
 
     </table>
-<a href="orders.php"><button class="btn">Manage Orders</button></a>
+    <a href="orders.php"><button class="btn">Manage Orders</button></a>
 
     <!-- ACTIONS -->
     <div style="display:flex;justify-content:space-between;align-items:center;margin-top:20px">
 
-  <!-- ADMIN DASHBOARD BUTTON -->
-  <?php if ($_SESSION['role'] === 'ADMIN'): ?>
-    <a href="admin/dashboard.php">
-      <button class="btn">🛠 Admin Dashboard</button>
-    </a>
-  <?php endif; ?>
+      <!-- ADMIN DASHBOARD BUTTON -->
+      <?php if ($_SESSION['role'] === 'ADMIN'): ?>
+        <a href="admin/dashboard.php">
+          <button class="btn">🛠 Admin Dashboard</button>
+        </a>
+      <?php endif; ?>
 
-  <!-- LOGOUT -->
-  <a href="logout.php">
-    <button class="btn" style="background:red">Logout</button>
-  </a>
+      <!-- LOGOUT -->
+      <a href="logout.php">
+        <button class="btn" style="background:red">Logout</button>
+      </a>
 
-</div>
+    </div>
 
 
   </div>

@@ -15,6 +15,7 @@ body {
 .container {
     width: 90%;
     margin: auto;
+    padding: 20px 0;
 }
 
 /* Links */
@@ -24,18 +25,24 @@ a {
 }
 
 /* Navbar */
+
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 30px;
     background: #000;
+    padding: 15px 30px;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
 }
 
 .nav-links a {
     margin-left: 20px;
     color: #ccc;
-    transition: 0.3s;
+    font-size: 16px;
 }
 
 .nav-links a:hover {
