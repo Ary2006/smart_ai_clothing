@@ -64,3 +64,33 @@ a {
     background: #00d4ff;
     color: black;
 }
+
+/* TOAST */
+
+.toast {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: #111;
+    color: white;
+    padding: 14px 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+    opacity: 0;
+    transform: translateY(20px);
+    animation: toastFade 0.5s forwards, toastHide 0.5s 3s forwards;
+}
+
+@keyframes toastFade {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes toastHide {
+    to {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+}

@@ -49,3 +49,11 @@ $base_url = "http://localhost/smart_ai_clothing/";
             <?php endif; ?>
         </div>
     </nav>
+
+    <?php if (isset($_SESSION['toast'])): ?>
+        <div class="toast" id="toast">
+            <?= $_SESSION['toast']; ?>
+        </div>
+        <?php unset($_SESSION['toast']); ?>
+    <?php endif; ?>
+</body>
