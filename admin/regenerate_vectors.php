@@ -7,7 +7,7 @@ if (function_exists('adminOnly')) {
     adminOnly();
 }
 
-include 'header.php'; // Keep the admin UI consistent
+include '../header.php'; // Keep the admin UI consistent
 ?>
 
 <div class="container-fluid p-4">

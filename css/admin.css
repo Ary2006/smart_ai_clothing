@@ -1,40 +1,112 @@
-/* =========================
-    ADMIN DASHBOARD (DARK UI)
-   ========================= */
+.admin-layout {
+    display: flex;
+    min-height: calc(100vh - 70px);
+}
 
-/* Product Image */
+/* SIDEBAR */
+.admin-sidebar {
+    width: 230px;
+    background: #0b0b0b;
+    border-right: 1px solid #222;
+    padding: 20px;
+}
+
+.admin-sidebar .logo {
+    color: white;
+    margin-bottom: 25px;
+}
+
+.admin-sidebar a {
+    display: block;
+    color: #aaa;
+    text-decoration: none;
+    padding: 10px 12px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    transition: 0.3s;
+}
+
+.admin-sidebar a:hover {
+    background: #1a1a1a;
+    color: #00d4ff;
+}
+
+.admin-sidebar a.active {
+    background: #00d4ff;
+    color: black;
+}
+
+/* MAIN */
+.admin-main {
+    flex: 1;
+    padding: 30px;
+}
+
+/* HEADER */
+.admin-header h2 {
+    margin-bottom: 20px;
+}
+
+/* CARD */
+.admin-card {
+    background: #111;
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid #222;
+}
+
+/* TABLE */
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.admin-table th {
+    text-align: left;
+    padding: 12px;
+    background: #1a1a1a;
+    color: #aaa;
+}
+
+.admin-table td {
+    padding: 12px;
+    border-top: 1px solid #222;
+}
+
+.admin-table tr:hover {
+    background: #1a1a1a;
+}
+
+/* IMAGE */
 .product-thumb {
     width: 50px;
     height: 50px;
-    object-fit: cover;
-    border-radius: 6px;
+    object-fit: contain;
 }
 
-/* Buttons */
+/* BUTTONS */
 .edit-btn {
-    color: #0d6efd;
-    text-decoration: none;
+    color: #00d4ff;
     margin-right: 10px;
 }
 
 .delete-btn {
-    color: #dc3545;
-    text-decoration: none;
+    color: #ff4d4d;
 }
 
-/* Admin Card */
-.admin-card {
+/* STATS */
+.stats-grid {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 25px;
+}
+
+.stat-card {
+    flex: 1;
     background: #111;
     padding: 20px;
-    border-radius: 16px;
-}
-
-/* Header section */
-.admin-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
+    border-radius: 12px;
+    border: 1px solid #222;
 }
 
 /* Buttons */
@@ -51,118 +123,12 @@
     color: black;
 }
 
-/* =========================
-   SIDEBAR ADMIN PANEL
-   ========================= */
-
-.admin-layout {
-    display: flex;
-    min-height: calc(100vh - 60px);
-}
-
-/* Sidebar */
-.admin-sidebar {
-    width: 220px;
-    background: #0a0a0a;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-}
-
-.admin-sidebar .logo {
-    margin-bottom: 20px;
-}
-
-.admin-sidebar a {
-    color: #aaa;
-    text-decoration: none;
-    padding: 10px;
-    border-radius: 8px;
-    margin-bottom: 8px;
-    transition: 0.3s;
-}
-
-.admin-sidebar a:hover,
-.admin-sidebar a.active {
-    background: #00d4ff;
-    color: black;
-}
-
-/* Main */
-.admin-main {
-    flex: 1;
-    padding: 30px 40px;
-}
-
-/* Header */
-.admin-header {
-    margin-bottom: 20px;
-}
-
-/* Card */
-.admin-card {
-    background: #111;
-    padding: 20px;
-    border-radius: 16px;
-}
-
-/* Table */
-.admin-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-.admin-table th {
-    background: #1c1c1c;
-    color: #aaa;
-    padding: 12px;
-    text-align: left;
-}
-
-.admin-table td {
-    padding: 12px;
-    border-bottom: 1px solid #222;
-}
-
-.admin-table tr:hover {
-    background: #1a1a1a;
-}
-
-/* Actions */
-.edit-btn {
-    color: #0d6efd;
-    margin-right: 10px;
-    text-decoration: none;
-}
-
-.delete-btn {
-    color: #dc3545;
-    text-decoration: none;
-}
-
 /* Price */
 .price {
     color: #00d4ff;
     font-weight: bold;
 }
 
-/* =========================
-    DASHBOARD STATS
-   ========================= */
-
-.stats-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 20px;
-    margin-bottom: 25px;
-}
-
-.stat-card {
-    background: #111;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.4);
-}
 
 .stat-card h4 {
     font-size: 14px;
@@ -193,11 +159,6 @@ select {
     background: #1c1c1c;
     color: white;
     border: none;
-}
-
-/* Improve spacing */
-.admin-main {
-    padding: 30px 40px;
 }
 
 .pagination a {

@@ -19,9 +19,7 @@ if ($_SESSION['uid'] == $id) {
 }
 
 // Update FIRST
-$stmt = $conn->prepare("UPDATE users SET role=? WHERE id=?");
-$stmt->bind_param("si", $role, $id);
-$stmt->execute();
+$stmt = $conn->prepare("UPDATE users SET role='$role' WHERE id=$id");
 
 // THEN toast
 $_SESSION['toast'] = [
