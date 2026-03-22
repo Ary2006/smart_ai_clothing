@@ -2,26 +2,30 @@
 include 'header.php';
 include 'config/db.php';
 
-if (!isset($_SESSION['uid'])) {
-    header("Location: login.php");
-    exit;
-}
+$user_id = $_SESSION['uid'] ?? 0;
 
-$uid = $_SESSION['uid'];
-$res = $conn->query("SELECT * FROM orders WHERE user_id=$uid ORDER BY id DESC");
+$res = $conn->query("
+  SELECT o.*, p.name, p.image 
+  FROM orders o
+  JOIN products p ON o.product_id = p.id
+  WHERE o.user_id = $user_id
+  ORDER BY o.id DESC
+");
 ?>
 
 <div class="container">
-<h2>📦 My Orders</h2>
+  <h2>📦 Your Orders</h2>
 
-<?php while ($o = $res->fetch_assoc()): ?>
-<div class="card" style="margin-bottom:15px">
-  <p><b>Order ID:</b> <?= $o['id'] ?></p>
-  <p><b>Total:</b> ₹<?= $o['total_amount'] ?></p>
-  <p><b>Status:</b> <?= $o['status'] ?></p>
-  <p><b>Date:</b> <?= $o['order_date'] ?></p>
-</div>
-<?php endwhile; ?>
+  <?php while($o = $res->fetch_assoc()): ?>
+    <div class="order-item">
+      <img src="uploads/products/<?= $o['image'] ?>">
+      <div>
+        <h4><?= $o['name'] ?></h4>
+        <p>Qty: <?= $o['quantity'] ?></p>
+        <small><?= $o['created_at'] ?></small>
+      </div>
+    </div>
+  <?php endwhile; ?>
 </div>
 
 <?php include 'footer.php'; ?>

@@ -1,6 +1,7 @@
 <?php
 include '../config/db.php';
 include '../config/auth.php';
+include '../config/helpers.php';
 
 // 1. Security Check
 adminOnly();
@@ -51,10 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $stmt->bind_param("ssddsssssi", $name, $description, $price, $rating, $fileName, $gender, $age_group, $color, $size, $on_offer);
 
         if ($stmt->execute()) {
-          $_SESSION['toast'] = [
-            "message" => "Product added successfully",
-            "type" => "success"
-          ];
+          toast("Product added successfully.", "success");
           header("Location: dashboard.php");
           exit;
         } else {

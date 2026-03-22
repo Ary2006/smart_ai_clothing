@@ -1,15 +1,15 @@
 <?php
 include '../config/db.php';
 include '../config/auth.php';
+include '../config/helpers.php';
+
 adminOnly();
 
 $id = (int)$_GET['id'];
 
 $stmt->execute();
 
-$_SESSION['toast'] = [
-    "message" => "User deleted successfully",
-    "type" => "success"
-];
+toast("User deleted successfully.", "success");
+
 header("Location: users.php");
 exit;

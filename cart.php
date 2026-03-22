@@ -2,77 +2,76 @@
 include 'header.php';
 include 'config/db.php';
 
-if (!isset($_SESSION['uid'])) {
-  header("Location: login.php");
-  exit;
-}
-
 $cart = $_SESSION['cart'] ?? [];
+
 $total = 0;
 ?>
 
 <div class="container">
-  <h2 style="margin-top:30px">🛒 Your Cart</h2>
+  <h2 style="margin:30px 0;">🛒 Your Cart</h2>
 
   <?php if (empty($cart)): ?>
-    <div class="card" style="text-align:center;margin-top:30px">
-      <p>Your cart is empty.</p>
-    </div>
+    <p>Your cart is empty</p>
   <?php else: ?>
 
-    <?php foreach ($cart as $id => $qty):
-      $p = $conn->query("SELECT * FROM products WHERE id=$id")->fetch_assoc();
-      $sub = $p['price'] * $qty;
-      $total += $sub;
-      ?>
+    <div class="cart-layout">
 
-      <!-- CART ITEM -->
-      <div class="card" style="display:flex;gap:20px;align-items:center;margin-bottom:15px">
+      <!-- ITEMS -->
+      <div class="cart-items">
 
-        <!-- IMAGE -->
-        <a href="product.php?id=<?= $p['id'] ?>">
-          <div class="product-image">
-            <img src="uploads/products/<?= $p['image'] ?>">
+        <?php foreach ($cart as $id => $qty):
+
+          $product = $conn->query("SELECT * FROM products WHERE id=$id")->fetch_assoc();
+          $subtotal = $product['price'] * $qty;
+          $total += $subtotal;
+          ?>
+
+          <div class="cart-item">
+
+            <div class="cart-img-box">
+              <img src="uploads/products/<?= $product['image'] ?>">
+            </div>
+
+            <div class="cart-info">
+              <h4><?= $product['name'] ?></h4>
+              <p>₹<?= $product['price'] ?></p>
+            </div>
+
+            <div class="cart-qty">
+              <form action="update_cart.php" method="post">
+                <input type="hidden" name="id" value="<?= $id ?>">
+                <input type="number" name="qty" value="<?= $qty ?>" min="1">
+                <button>Update</button>
+              </form>
+            </div>
+
+            <div class="cart-subtotal">
+              ₹<?= $subtotal ?>
+            </div>
+
+            <a href="remove_cart.php?id=<?= $id ?>" class="remove-btn">✖</a>
+
           </div>
-        </a>
 
-        <!-- DETAILS -->
-        <div style="flex:1">
-          <h4 style="margin:0">
-            <a href="product.php?id=<?= $p['id'] ?>" style="text-decoration:none;color:black">
-              <?= $p['name'] ?>
-            </a>
-          </h4>
-          <p style="margin:5px 0;color:#555">Color: <?= $p['color'] ?></p>
-          <p style="margin:5px 0">Price: ₹<?= $p['price'] ?></p>
-          <p style="margin:5px 0">Quantity: <?= $qty ?></p>
-        </div>
-
-        <!-- SUBTOTAL -->
-        <div style="text-align:right">
-          <p style="font-weight:bold">₹<?= $sub ?></p>
-          <a href="remove_from_cart.php?id=<?= $p['id'] ?>" style="color:red;font-size:14px">
-            Remove
-          </a>
-        </div>
+        <?php endforeach; ?>
 
       </div>
 
-    <?php endforeach; ?>
+      <!-- SUMMARY -->
+      <div class="cart-summary">
 
-    <!-- TOTAL + ACTIONS -->
-    <div class="card" style="display:flex;justify-content:space-between;align-items:center;margin-top:20px">
-      <h3>Total: ₹<?= $total ?></h3>
-      <a href="checkout.php"><button class="btn">Checkout</button></a>
+        <h3>Order Summary</h3>
 
-      <div style="display:flex;gap:10px">
-        <a href="download_bill.php">
-          <button class="btn">Download Bill</button>
-        </a>
+        <p>Total: <b>₹<?= $total ?></b></p>
+
+        <button class="checkout-btn">Proceed to Checkout</button>
+
       </div>
+
     </div>
 
   <?php endif; ?>
+
 </div>
 
 <?php include 'footer.php'; ?>

@@ -1,10 +1,6 @@
 <?php
-include 'config/db.php';
-
-if (!isset($_SESSION['uid'])) {
-    header("Location: login.php");
-    exit;
-}
+include 'config/helpers.php';
+session_start();
 
 $id = (int)$_POST['product_id'];
 
@@ -17,6 +13,8 @@ if (isset($_SESSION['cart'][$id])) {
 } else {
     $_SESSION['cart'][$id] = 1;
 }
+
+toast("Added to cart", "success");
 
 header("Location: cart.php");
 exit;

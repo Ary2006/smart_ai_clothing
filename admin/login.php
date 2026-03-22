@@ -1,5 +1,6 @@
 <?php
 include '../config/db.php';
+include '../config/helpers.php';
 
 $error = "";
 
@@ -17,17 +18,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $_SESSION['admin_name'] = $admin['name'];
     $_SESSION['role'] = 'ADMIN';
 
-    $_SESSION['toast'] = [
-      "message" => "Welcome back!",
-      "type" => "success"
-    ];
+    toast("Welcome back!", "success");
+
     header("Location: dashboard.php");
     exit;
   } else {
-    $_SESSION['toast'] = [
-      "message" => "Invalid admin credentials",
-      "type" => "error"
-    ];
+    toast("Invalid admin credentials", "success");
   }
 }
 ?>

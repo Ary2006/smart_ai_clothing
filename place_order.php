@@ -1,38 +1,22 @@
 <?php
+session_start();
 include 'config/db.php';
+include 'config/helpers.php';
 
-if (!isset($_SESSION['uid'])) {
-    header("Location: login.php");
+if (!isset($_SESSION['cart']) || empty($_SESSION['cart'])) {
+    header("Location: cart.php");
     exit;
 }
 
-$cart = $_SESSION['cart'];
-$user_id = $_SESSION['uid'];
-$total = 0;
+$user_id = $_SESSION['uid'] ?? 0;
 
-// Calculate total
-foreach ($cart as $pid => $qty) {
-    $p = $conn->query("SELECT price FROM products WHERE id=$pid")->fetch_assoc();
-    $total += $p['price'] * $qty;
+foreach ($_SESSION['cart'] as $id => $qty) {
+    $conn->query("INSERT INTO orders (user_id, product_id, quantity) VALUES ($user_id, $id, $qty)");
 }
 
-// Insert order
-$conn->query("INSERT INTO orders (user_id, total_amount) VALUES ($user_id, $total)");
-$order_id = $conn->insert_id;
-
-// Insert order items
-foreach ($cart as $pid => $qty) {
-    $p = $conn->query("SELECT price FROM products WHERE id=$pid")->fetch_assoc();
-    $price = $p['price'];
-
-    $conn->query("
-    INSERT INTO order_items (order_id, product_id, price, quantity)
-    VALUES ($order_id, $pid, $price, $qty)
-    ");
-}
-
-// Clear cart
 unset($_SESSION['cart']);
+
+toast("Payment Successful! Order Placed.", "success");
 
 header("Location: orders.php");
 exit;

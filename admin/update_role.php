@@ -1,6 +1,7 @@
 <?php
 include '../config/db.php';
 include '../config/auth.php';
+include '../config/helpers.php';
 adminOnly();
 
 $id = (int) $_POST['id'];
@@ -10,10 +11,8 @@ session_start();
 
 // Prevent self-demotion
 if ($_SESSION['uid'] == $id) {
-    $_SESSION['toast'] = [
-        "message" => "You cannot change your own role",
-        "type" => "warning"
-    ];
+    toast("You cannot change your own role.", "success");
+
     header("Location: users.php");
     exit;
 }
@@ -22,9 +21,7 @@ if ($_SESSION['uid'] == $id) {
 $stmt = $conn->prepare("UPDATE users SET role='$role' WHERE id=$id");
 
 // THEN toast
-$_SESSION['toast'] = [
-    "message" => "User role updated",
-    "type" => "success"
-];
+toast("User role updated.", "success");
+
 header("Location: users.php");
 exit;

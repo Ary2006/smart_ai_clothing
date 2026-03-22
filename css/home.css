@@ -19,6 +19,10 @@
     transform: translateY(-5px);
 }
 
+.product-card img {
+    object-fit: contain;   /* match cart */
+}
+
 .product-image {
     position: relative;
     overflow: hidden;
