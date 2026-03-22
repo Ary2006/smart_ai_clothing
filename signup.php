@@ -5,30 +5,50 @@ $error = "";
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
-    if (!str_ends_with($_POST['email'], '@gmail.com')) {
-        $error = "Only Gmail addresses are allowed";
-    }
+  // Get values
+  $name = $conn->real_escape_string($_POST['name']);
+  $email = $conn->real_escape_string($_POST['email']);
+  $phone = $conn->real_escape_string($_POST['phone']);
+  $age = $_POST['age'];
+  $gender = $_POST['gender'];
+  $password = $_POST['password'];
+  $confirm_password = $_POST['confirm_password'];
 
-    elseif ($_POST['password'] !== $_POST['confirm_password']) {
-        $error = "Passwords do not match";
-    }
+  // Hash password
+  $pass = password_hash($password, PASSWORD_DEFAULT);
 
-    else {
-        $name  = $conn->real_escape_string($_POST['name']);
-        $email = $conn->real_escape_string($_POST['email']);
-        $phone = $conn->real_escape_string($_POST['phone']);
-        $pass  = password_hash($_POST['password'], PASSWORD_DEFAULT);
+  // ================= VALIDATION =================
 
-        $sql = "INSERT INTO users (name,email,password,phone)
-                VALUES ('$name','$email','$pass','$phone')";
+  if (empty($name) || empty($email) || empty($password) || empty($phone) || empty($age) || empty($gender)) {
+      $error = "All fields are required";
+  } elseif (!str_ends_with($email, '@gmail.com')) {
+      $error = "Only Gmail addresses are allowed";
+  } elseif ($password !== $confirm_password) {
+      $error = "Passwords do not match";
+  } elseif (!preg_match('/^[0-9]{10}$/', $phone)) {
+      $error = "Phone number must be exactly 10 digits";
+  } elseif ($age < 1 || $age > 120) {
+      $error = "Enter a valid age";
+  } elseif (!in_array($gender, ['Male', 'Female', 'Other'])) {
+      $error = "Invalid gender selected";
+  }
 
-        if ($conn->query($sql)) {
-            header("Location: login.php");
-            exit;
-        } else {
-            $error = "Email already exists";
-        }
-    }
+  // ================= INSERT =================
+
+  if (empty($error)) {
+
+      $query = "INSERT INTO users 
+      (name, email, password, phone, age, gender, role) 
+      VALUES 
+      ('$name', '$email', '$pass', '$phone', '$age', '$gender', 'USER')";
+
+      if ($conn->query($query)) {
+          header("Location: login.php");
+          exit;
+      } else {
+          $error = "Email already exists";
+      }
+  }
 }
 ?>
 
@@ -48,14 +68,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         <h2>Create Account</h2>
         <p class="subtitle">Join Smart AI Clothing</p>
 
-        <?php if ($error): ?>
-          <p class="error"><?= $error ?></p>
-        <?php endif; ?>
-
         <form method="post">
 
           <div class="input-group">
-            <label>Full Name</label>
+            <label>Name</label>
             <input name="name" required>
           </div>
 
@@ -75,8 +91,23 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
           </div>
 
           <div class="input-group">
-            <label>Phone (optional)</label>
-            <input type="text" name="phone">
+            <label>Phone</label>
+            <input type="text" name="phone" maxlength="10" pattern="[0-9]{10}" required>
+          </div>
+
+          <div class="input-group">
+            <label>Age</label>
+            <input type="number" name="age" min="1" max="120" required>
+          </div>
+
+          <div class="input-group">
+            <label>Gender</label>
+            <select name="gender" required>
+              <option value="">Select Gender</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Other">Other</option>
+            </select>
           </div>
 
           <button class="login-btn">Create Account</button>
